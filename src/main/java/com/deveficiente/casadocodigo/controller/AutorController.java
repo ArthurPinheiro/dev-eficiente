@@ -1,12 +1,13 @@
 package com.deveficiente.casadocodigo.controller;
 
 import com.deveficiente.casadocodigo.domain.Autor;
+import com.deveficiente.casadocodigo.domain.NovoAutorForm;
 import com.deveficiente.casadocodigo.service.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -17,21 +18,11 @@ public class AutorController {
     @Autowired
     private AutorRepository autorRepository;
 
-    @GetMapping
-    public ResponseEntity<?> listar(Pageable pageable) {
-        return new ResponseEntity<>(autorRepository.findAll(pageable), HttpStatus.OK);
-    }
-
     @PostMapping("/salvar")
-    public ResponseEntity<?> salvar(@Valid @RequestBody Autor autor) {
-        this.autorRepository.save(autor);
-        return new ResponseEntity<>(autor, HttpStatus.OK);
+    public void salvar(@Valid @RequestBody NovoAutorForm form) {
+        Autor novoAutor = form.novoAutor();
+        this.autorRepository.save(novoAutor);
     }
 
-    @PutMapping("/editar")
-    public ResponseEntity<Autor> editar(@RequestBody Autor autor) {
-        this.autorRepository.findById(autor.getId());
-        this.autorRepository.save(autor);
-        return new ResponseEntity<>(autor, HttpStatus.OK);
-    }
+
 }

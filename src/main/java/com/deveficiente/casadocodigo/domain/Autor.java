@@ -1,37 +1,79 @@
 package com.deveficiente.casadocodigo.domain;
 
-import lombok.*;
-
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@ToString
-@Builder
-public class Autor extends AbstractEntity {
+public class Autor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @NotNull
-    @NotEmpty
+    @NotBlank
     private String nome;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
 
-    @NotEmpty
-    @NotNull
+    @NotBlank
     @Size(min = 3, max = 400)
     private String descricao;
 
-    @NotNull
     private LocalDateTime instante = LocalDateTime.now();
+
+    public Autor(@NotNull @NotBlank String nome, @NotBlank @Email String email,
+                 @NotBlank @Size(min = 3, max = 400) String descricao) {
+        this.nome = nome;
+        this.email = email;
+        this.descricao = descricao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public LocalDateTime getInstante() {
+        return instante;
+    }
+
+    public void setInstante(LocalDateTime instante) {
+        this.instante = instante;
+    }
+
 }
