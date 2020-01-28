@@ -25,7 +25,7 @@ public class CategoriaValidador implements Validator {
         Optional<Categoria> categoria = categoriaRepository.findByNome(categoriaDuplicada.getNome());
 
         if (categoria.isPresent()) {
-            errors.rejectValue("nome", null,"Já existe uma categoria cadastra com esse valor");
+            errors.rejectValue("nome", null,"Já existe uma categoria cadastrada com esse valor");
         }
     }
 }

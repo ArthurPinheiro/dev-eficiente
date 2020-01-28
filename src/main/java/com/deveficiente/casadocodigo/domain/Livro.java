@@ -22,7 +22,7 @@ public class Livro {
 
     private String sumario;
 
-   // @NotBlank
+    @NotNull
     @Min(20)
     private BigDecimal preco;
 
@@ -38,7 +38,7 @@ public class Livro {
     @Future
     private LocalDateTime dataPublicacao;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @NotNull
     @JoinColumn(name = "fk_categoria_id")
     private Categoria categoria;
@@ -55,4 +55,5 @@ public class Livro {
         this.isbn = isbn;
         this.categoria = categoria;
     }
+
 }

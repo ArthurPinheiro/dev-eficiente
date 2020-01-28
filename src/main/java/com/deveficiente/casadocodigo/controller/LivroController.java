@@ -1,15 +1,16 @@
 package com.deveficiente.casadocodigo.controller;
 
+import com.deveficiente.casadocodigo.domain.IsbnLivroValidador;
 import com.deveficiente.casadocodigo.domain.Livro;
 import com.deveficiente.casadocodigo.domain.NovoLivroForm;
+import com.deveficiente.casadocodigo.domain.TituloLivroValidador;
 import com.deveficiente.casadocodigo.service.CategoriaRepository;
 import com.deveficiente.casadocodigo.service.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -22,14 +23,15 @@ public class LivroController {
     @Autowired
     CategoriaRepository categoriaRepository;
 
-    @GetMapping
-    public ResponseEntity<?> listAll(Pageable pageable){
-        return new ResponseEntity<>(livroRepository.findAll(pageable), HttpStatus.OK);
+    @InitBinder
+    public void initBindir(WebDataBinder binder) {
+        binder.addValidators(new TituloLivroValidador(livroRepository), new IsbnLivroValidador(livroRepository));
     }
 
+
     @PostMapping("/salvar")
+    @Transactional
     public void salvar(@Valid @RequestBody NovoLivroForm form) {
-        System.out.println("aquiiiiiii");
         Livro novoLivro = form.novoLivro(categoriaRepository);
         this.livroRepository.save(novoLivro);
     }

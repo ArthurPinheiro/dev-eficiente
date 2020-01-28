@@ -18,7 +18,7 @@ public class NovoLivroForm {
     @Size(max = 500)
     private String resumo;
 
-  //  @NotBlank
+    @NotNull
     @Min(20)
     private BigDecimal preco;
 
@@ -34,6 +34,15 @@ public class NovoLivroForm {
 
     @Deprecated
     public NovoLivroForm(){}
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
 
     public Livro novoLivro(CategoriaRepository categoriaRepository){
         Categoria categoria = categoriaRepository.findById(categoriaId).get();
