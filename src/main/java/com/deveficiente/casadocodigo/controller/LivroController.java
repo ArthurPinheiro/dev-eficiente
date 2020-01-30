@@ -28,6 +28,11 @@ public class LivroController {
         binder.addValidators(new TituloLivroValidador(livroRepository), new IsbnLivroValidador(livroRepository));
     }
 
+    @GetMapping("/listar")
+    public Iterable<Livro> listarLivros() {
+        return livroRepository.findAll();
+
+    }
 
     @PostMapping("/salvar")
     @Transactional

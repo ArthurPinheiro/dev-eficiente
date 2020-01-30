@@ -46,7 +46,8 @@ public class Livro {
     @Deprecated
     public Livro(){}
 
-    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo,@Size(min = 20) @NotBlank BigDecimal preco,
+
+    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, @Size(min = 20) @NotBlank BigDecimal preco,
                  @Size(min = 100) int numeroPaginas, @NotBlank String isbn, @NotNull Categoria categoria) {
         this.titulo = titulo;
         this.resumo = resumo;
@@ -54,6 +55,14 @@ public class Livro {
         this.numeroPaginas = numeroPaginas;
         this.isbn = isbn;
         this.categoria = categoria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 
 }
