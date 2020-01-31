@@ -85,10 +85,6 @@ public class Livro {
         return isbn;
     }
 
-    public LocalDateTime getDataPublicacao() {
-        return dataPublicacao;
-    }
-
     public Categoria getCategoria() {
         return categoria;
     }
