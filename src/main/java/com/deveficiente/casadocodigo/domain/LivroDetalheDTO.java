@@ -1,7 +1,6 @@
 package com.deveficiente.casadocodigo.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class LivroDetalheDTO {
 
@@ -11,7 +10,6 @@ public class LivroDetalheDTO {
     private BigDecimal preco;
     private int numeroPaginas;
     private String isbn;
-    private LocalDateTime dataPublicacao;
     private CategoriaDetalheDTO categoria;
 
     public LivroDetalheDTO(Livro livro) {
@@ -21,7 +19,6 @@ public class LivroDetalheDTO {
         this.preco = livro.getPreco();
         this.numeroPaginas = livro.getNumeroPaginas();
         this.isbn = livro.getIsbn();
-        this.dataPublicacao = livro.getDataPublicacao();
         this.categoria = new CategoriaDetalheDTO(livro.getCategoria());
     }
 
@@ -47,10 +44,6 @@ public class LivroDetalheDTO {
 
     public String getIsbn() {
         return isbn;
-    }
-
-    public LocalDateTime getDataPublicacao() {
-        return dataPublicacao;
     }
 
     public CategoriaDetalheDTO getCategoria() {
