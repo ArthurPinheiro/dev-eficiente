@@ -1,6 +1,7 @@
 package com.deveficiente.casadocodigo.controller;
 
 import com.deveficiente.casadocodigo.domain.Carrinho;
+import com.deveficiente.casadocodigo.domain.Livro;
 import com.deveficiente.casadocodigo.service.LivroRepository;
 import com.deveficiente.casadocodigo.shared.Cookies;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,6 +29,14 @@ public class CarrinhoDeCompraController {
         cookies.writeAsJson("carrinho", carrinho, response);
 
         return carrinho.toString();
-
     }
+
+    @PutMapping(value = "atualiza/{id}")
+    public void atualiza(@PathVariable("id") Long id, @RequestParam int novaQuantidade, @CookieValue("carrinho") String jsonCarrinho, HttpServletResponse response ) {
+        Carrinho carrinho = Carrinho.cria(Optional.of(jsonCarrinho));
+        Livro livro = livroRepository.findById(id).get();
+        carrinho.atualiza(livro, novaQuantidade);
+        cookies.writeAsJson("carrinho", carrinho, response);
+    }
+
 }
